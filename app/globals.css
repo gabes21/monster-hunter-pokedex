@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f2f0e7;
+  --foreground: #171717;
+  --panel-background: #ab9172;
+  --primary-text: #171717;
+}
+
+@font-face {
+  font-family: "font-pokemon";
+  src: url("/fonts/monsterhunter.ttf");
+}
+
+@theme {
+  --font-pokemon: "font-pokemon", sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-panel-background: var(--panel-background);
+  --color-primary-text: var(--primary-text);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-pokemon);
+}
