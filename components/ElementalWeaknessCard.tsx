@@ -1,9 +1,16 @@
-import { ElementalWeakness } from "@/types";
+import { loadElementImagePath } from "@/lib/util";
+import { Element, ElementalWeakness, BodyPartWeakness } from "@/types";
 import Image from "next/image";
 
-const ElementalCard = ({ elements }: { elements: ElementalWeakness }) => {
-  console.log("elemental card elements: ", elements);
-  const sortedElements = Object.entries(elements)
+const ElementalWeaknessCard = ({
+  elements,
+}: {
+  elements: ElementalWeakness;
+}) => {
+  const sortedElements = (
+    Object.entries(elements) as [Element, BodyPartWeakness][]
+  )
+    .filter(([_, bodyParts]) => Object.keys(bodyParts).length > 0)
     .map(([element, bodyParts]) => ({
       element,
       totalDamage: Object.values(bodyParts).reduce(
@@ -12,12 +19,13 @@ const ElementalCard = ({ elements }: { elements: ElementalWeakness }) => {
       ),
     }))
     .sort((a, b) => b.totalDamage - a.totalDamage);
+
   return (
     <div className="flex justify-center items-center">
       {sortedElements.map(({ element, totalDamage }) => (
         <div key={element} className="flex flex-col items-center">
           <Image
-            src={`/images/${element}.png`}
+            src={loadElementImagePath(element)}
             alt={element}
             title={element}
             width={18}
@@ -29,4 +37,4 @@ const ElementalCard = ({ elements }: { elements: ElementalWeakness }) => {
   );
 };
 
-export default ElementalCard;
+export default ElementalWeaknessCard;
