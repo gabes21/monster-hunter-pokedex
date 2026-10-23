@@ -1,0 +1,12 @@
+# docker-compose.yml
+services:
+  app:
+    image: monster-hunter-pokedex:1.0
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}
+        NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}
+        BUCKET_NAME: ${BUCKET_NAME}
+    ports:
+      - "3000:3000"

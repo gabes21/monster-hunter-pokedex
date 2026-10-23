@@ -30,6 +30,22 @@ export async function POST(request: Request) {
     }
     const supabase = await createClient();
 
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+
+    console.log("Authenticated user:", user?.id);
+    console.log("Auth error:", error);
+
+    const {
+      data: { session },
+      error: sessionError,
+    } = await supabase.auth.getSession();
+
+    console.log("Session exists:", !!session);
+    console.log("Session error:", sessionError);
+
     const formData = await request.formData();
     const image = formData.get("image");
     const rawData = formData.get("data");
